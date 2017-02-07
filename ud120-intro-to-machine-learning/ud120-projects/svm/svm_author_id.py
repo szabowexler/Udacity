@@ -21,11 +21,19 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 from sklearn.svm import SVC
-classifier = SVC(kernel="linear")
+classifier = SVC(kernel="rbf", C=10000)
 
 t0 = time()
 classifier.fit(features_train, labels_train)
 print "SVM training time", round(time() - t0, 3), "s"
+
+pred = classifier.predict(features_test)
+print "pred[10] = ", pred[10]
+print "pred[26] = ", pred[26]
+print "pred[50] = ", pred[50]
+
+chris = sum(pred)
+print "there are ", chris, " emails written by Chris!"
 
 t0 = time()
 score = classifier.score(features_test, labels_test)

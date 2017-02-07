@@ -19,12 +19,19 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-
-
-
 #########################################################
-### your code goes here ###
+from sklearn.svm import SVC
+classifier = SVC(kernel="linear")
 
+t0 = time()
+classifier.fit(features_train, labels_train)
+print "SVM training time", round(time() - t0, 3), "s"
+
+t0 = time()
+score = classifier.score(features_test, labels_test)
+print "SVM testing time", round(time() - t0, 3), "s"
+
+print "SVM accuracy =", score
 #########################################################
 
 

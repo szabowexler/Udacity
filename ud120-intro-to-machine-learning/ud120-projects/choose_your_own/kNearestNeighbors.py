@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from time import time
 
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
@@ -24,19 +25,28 @@ plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
 plt.legend()
 plt.xlabel("bumpiness")
 plt.ylabel("grade")
-plt.show()
+# plt.show()
 ################################################################################
 
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+from sklearn.neighbors import KNeighborsClassifier
 
+# k = 5, alg = auto --> 0.92
+# k = 10, alg = auto --> 0.932
+# k = 20, alg = auto --> 0.936
+# k=20, weights = distance, alg = brute, p=3 --> 0.94
+clf = KNeighborsClassifier(n_neighbors=20, weights='distance', algorithm='brute', p=3)
 
+t0 = time()
+clf.fit(features_train, labels_train)
+print "Training time = ", round(time() - t0, 3), "s"
 
-
-
-
-
+t0 = time()
+accuracy = clf.score(features_test, labels_test)
+print "Test time = ", round(time() - t0, 3), "s"
+print "Accuracy = ", accuracy
 
 try:
     prettyPicture(clf, features_test, labels_test)

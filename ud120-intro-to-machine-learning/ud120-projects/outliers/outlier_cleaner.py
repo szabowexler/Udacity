@@ -10,11 +10,12 @@ def outlierCleaner(predictions, ages, net_worths):
         Return a list of tuples named cleaned_data where 
         each tuple is of the form (age, net_worth, error).
     """
-    
-    cleaned_data = []
 
-    ### your code goes here
+    tupleView = zip(ages, net_worths, predictions)
+    pointsOrderedByError = sorted(tupleView, key=lambda (age, net_worth, prediction): prediction - net_worth)
+    cleaned_data = pointsOrderedByError[:int(round(0.9*len(pointsOrderedByError)))]
 
+    print "Cleaned data has:", len(cleaned_data), " data points."
     
     return cleaned_data
 

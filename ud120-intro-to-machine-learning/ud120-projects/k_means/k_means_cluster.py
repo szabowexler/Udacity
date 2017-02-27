@@ -50,12 +50,21 @@ poi, finance_features = targetFeatureSplit(data)
 
 names = list(data_dict)
 stockOptions = filter(lambda value: value != "NaN", map(lambda name: data_dict[name][feature_2], names))
-print "Max exercised stock = ", max(stockOptions)
-print "Min exercised stock =", min(stockOptions)
+maxStockOptions = max(stockOptions)
+print "Max exercised stock = ", maxStockOptions
+minStockOptions = min(stockOptions)
+print "Min exercised stock =", minStockOptions
 
 salaryValues = filter(lambda value: value != "NaN", map(lambda name: data_dict[name][feature_1], names))
-print "Max salary = ", max(salaryValues)
-print "Min salary =", min(salaryValues)
+maxSalary = max(salaryValues)
+print "Max salary = ", maxSalary
+minSalary = min(salaryValues)
+print "Min salary =", minSalary
+
+from sklearn.preprocessing import minmax_scale
+print "Scaled stock=", float(1000000 - minStockOptions) / (maxStockOptions - minStockOptions)
+print "Scaled salary=", float(200000 - minSalary) / (maxSalary - minSalary)
+
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 

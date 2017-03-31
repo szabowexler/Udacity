@@ -48,14 +48,20 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
+            stemmed_text = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
+            stemmed_text = stemmed_text.replace("sara ", "")
+            stemmed_text = stemmed_text.replace("shackleton ", "")
+            stemmed_text = stemmed_text.replace("chris ", "")
+            stemmed_text = stemmed_text.replace("germani ", "")
 
             ### append the text to word_data
+            word_data.append(stemmed_text)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-
+            from_data.append(0 if from_person == "sara" else 1)
 
             email.close()
 
